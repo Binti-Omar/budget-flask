@@ -1,3 +1,4 @@
+import sentry_sdk
 from flask import Flask,jsonify,request
 from flask_jwt_extended import JWTManager,jwt_required,create_access_token
 from flask_bcrypt import Bcrypt
@@ -12,6 +13,13 @@ app = Flask(__name__)
 app.config["JWT_SECRET_KEY"]="adrgijj765"
 
 CORS(app)
+
+sentry_sdk.init(
+    dsn="https://ab85a5df97e990df16f678f6bca3cc5f@o4511100040380416.ingest.us.sentry.io/4511100045950976",
+    # Add data like request headers and IP for users,
+    # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
+    send_default_pii=True,
+)
 
 jwt=JWTManager(app)
 
